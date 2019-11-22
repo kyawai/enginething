@@ -1,7 +1,6 @@
 #include "RenderTexture.h"
 #include "Context.h"
 #include "Exception.h"
-#include "rend.h"
 
 namespace rend
 {

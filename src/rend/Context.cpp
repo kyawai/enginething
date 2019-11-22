@@ -5,7 +5,6 @@
 #include "Shader.h"
 #include "Buffer.h"
 #include "Mesh.h"
-#include "rend.h"
 
 #include <GL/glew.h>
 
