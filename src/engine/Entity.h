@@ -12,6 +12,7 @@ class Application;
 
 class Entity
 {
+	friend Application;
 	std::weak_ptr<Application> app;
 	std::vector<std::shared_ptr<Component>> components;
 
@@ -24,6 +25,7 @@ public:
 		std::shared_ptr<T> ret = std::make_shared<T>();
 		components.push_back(ret);
 		ret->entity = self;
+		ret->app = app;
 		return ret;
 	}
 	template<class T, class A>
@@ -32,6 +34,7 @@ public:
 		std::shared_ptr<T> ret = std::make_shared<T>(a);
 		components.push_back(ret);
 		ret->entity = self;
+		ret->app = app;
 		return ret;
 	}
 	template<class T, class A, class B>
@@ -40,6 +43,7 @@ public:
 		std::shared_ptr<T> ret = std::make_shared<T>(a,b);
 		components.push_back(ret);
 		ret->entity = self;
+		ret->app = app;
 		return ret;
 	}
 	template<class T, class A, class B, class C>
@@ -48,6 +52,7 @@ public:
 		std::shared_ptr<T> ret = std::make_shared<T>(a,b,c);
 		components.push_back(ret);
 		ret->entity = self;
+		ret->app = app;
 		return ret;
 	}
 

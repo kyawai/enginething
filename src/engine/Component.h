@@ -2,10 +2,11 @@
 #define _COMPONENT_H_
 
 #include <memory>
-#include "Entity.h"
+
+
+
 class Application;
 class Entity;
-
 
 class Component
 {
@@ -15,7 +16,7 @@ class Component
 
 public:
 	std::shared_ptr<Entity> getEntity();
-	//std::shared_ptr<Application> getApp;
+	std::weak_ptr<Application> app;
 	virtual void onInit();
 	virtual void onBegin();
 	virtual void onTick();

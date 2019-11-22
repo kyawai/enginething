@@ -29,11 +29,9 @@ src/engine/Component.h
 src/engine/Component.cpp
 src/engine/Renderer.h
 src/engine/Renderer.cpp
-src/engine/Exception.h
-src/engine/Exception.cpp
 src/engine/stb_image.h
 )
-target_link_libraries(engine SDL2 opengl32 glew32)
+target_link_libraries(engine SDL2 rend)
 
 add_executable(game
 	src/game/main.cpp

@@ -1,36 +1,101 @@
 #include <iostream>
 #include "Application.h"
 
+#define WINDOW_WIDTH 1024
+#define WINDOW_HEIGHT 768
+
+const char* src =
+"\n#ifdef VERTEX\n" \
+"attribute vec2 a_Position;" \
+"" \
+"void main()" \
+"{" \
+"  gl_Position = vec4(a_Position, 0, 1);" \
+"}" \
+"" \
+"\n#endif\n" \
+"\n#ifdef FRAGMENT\n" \
+"" \
+"void main()" \
+"{" \
+"  gl_FragColor = vec4(1, 0, 0, 1);" \
+"}" \
+"" \
+"\n#endif\n";
 
 std::shared_ptr<Application> Application::Initialize()
 {
 	std::shared_ptr<Application> ini = std::make_shared<Application>();
+
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		throw rend::Exception("Failed to initialise at Application::Initialize");
+	}
+
+	ini->window = SDL_CreateWindow("MYENGINE",
+		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+
+	if (!SDL_GL_CreateContext(ini->window))
+	{
+		throw rend::Exception("failed to create window");
+	}
+
+	SDL_GLContext glContext = SDL_GL_CreateContext(ini->window);
+	if (!glContext)
+	{
+		throw rend::Exception("failed to create opengl cotext");
+	}
+
 	ini->self = ini;
+	ini->context = rend::Context::initialize();
 	return ini;
+}
+
+Application::~Application()
+{
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 }
 
 std::shared_ptr<Entity> Application::AddEntity()
 {
 	std::shared_ptr<Entity> ent = std::make_shared<Entity>();
 	entities.push_back(ent);
+	ent->app = self;
 	ent->self = ent;
 	return ent;
 }
 
 void Application::Run()
 {
-	while (true)
+	bool quit = false;
+	while (!quit)
 	{
+		SDL_Event event = { 0 };
+		while (SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_QUIT)
+			{
+				quit = true;
+			}
+		}
 		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin(); it != entities.end(); it++)
 		{
 			(*it)->tick();
 			std::cout << "entity tick" << std::endl;
 		}
+
+		/*glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);*/
+
 		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin(); it != entities.end(); it++)
 		{
 			(*it)->display();
 			std::cout << "entities display" << std::endl;
 		}
+
+		SDL_GL_SwapWindow(window);
 	}
 
 }

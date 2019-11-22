@@ -1,4 +1,8 @@
 #include "Component.h"
+#include "Entity.h"
+#include "SDL2/SDL.h"
+#include "GL/glew.h"
+#include "glm/glm.hpp"
 
 std::shared_ptr<Entity> Component::getEntity()
 {
@@ -31,5 +35,5 @@ void Component::onDisplay()
 std::shared_ptr<Application> Component::getApp()
 {
 	//	std::shared_ptr<Application> retApp = std::make_shared<Application>();
-		return getEntity()->getApp;
+	return app.lock();
 }

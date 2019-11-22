@@ -13,9 +13,8 @@ int main()
 {
 	std::shared_ptr<Application> app = Application::Initialize();
 	std::shared_ptr<Entity> ent = app->AddEntity();
-	//std::shared_ptr<Component> comp = ent->addComponent();
 	std::shared_ptr<Renderer> rend = ent->addComponent<Renderer>();
-
+	rend->RenderInitialise("../Shaders/basicShader.txt", "../models/graveyard.obj", "../models/graveyard.png");
 	app->Run();
 	std::cout << "game RUnning" << std::endl;
 	
