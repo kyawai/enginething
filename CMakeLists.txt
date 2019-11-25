@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(MYENGINE)
 
-include_directories(src)
+include_directories(src SoundFile)
 
 add_library(rend
   src/rend/Exception.cpp
@@ -14,7 +14,7 @@ add_library(rend
   src/rend/Util.cpp
 )
 if (MSVC)
-target_link_libraries(rend glew32 opengl32)
+target_link_libraries(rend glew32 opengl32 OpenAL32)
 else()
 target_link_libraries(rend GLEW GL)
 endif()
@@ -30,8 +30,10 @@ src/engine/Component.cpp
 src/engine/Renderer.h
 src/engine/Renderer.cpp
 src/engine/stb_image.h
+src/engine/Audio.h
+src/engine/Audio.cpp
 )
-target_link_libraries(engine SDL2 rend)
+target_link_libraries(engine SDL2 rend OpenAL32)
 
 add_executable(game
 	src/game/main.cpp
