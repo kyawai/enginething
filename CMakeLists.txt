@@ -32,6 +32,8 @@ src/engine/Renderer.cpp
 src/engine/stb_image.h
 src/engine/Audio.h
 src/engine/Audio.cpp
+src/engine/Camera.cpp
+src/engine/Camera.h
 )
 target_link_libraries(engine SDL2 rend OpenAL32)
 
