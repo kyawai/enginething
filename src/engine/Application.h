@@ -10,6 +10,7 @@
 #include "Renderer.h"
 #include <rend/rend.h>
 #include "SDL2/SDL.h"
+#include "Audio.h"
 
 class Application;
 class Entity;
@@ -20,6 +21,8 @@ class Application
 	std::vector<std::shared_ptr<Entity>> entities;
 	std::weak_ptr<Application> self;
 	SDL_Window* window;
+	ALCdevice* device;
+	ALCcontext* soundContext;
 
 public:
 	std::sr1::shared_ptr<rend::Context> context;

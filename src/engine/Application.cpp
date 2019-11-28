@@ -1,32 +1,14 @@
 #include <iostream>
 #include "Application.h"
 
-#define WINDOW_WIDTH 1024
-#define WINDOW_HEIGHT 768
+#define WINDOW_WIDTH 1080
+#define WINDOW_HEIGHT 1020
 
-const char* src =
-"\n#ifdef VERTEX\n" \
-"attribute vec2 a_Position;" \
-"" \
-"void main()" \
-"{" \
-"  gl_Position = vec4(a_Position, 0, 1);" \
-"}" \
-"" \
-"\n#endif\n" \
-"\n#ifdef FRAGMENT\n" \
-"" \
-"void main()" \
-"{" \
-"  gl_FragColor = vec4(1, 0, 0, 1);" \
-"}" \
-"" \
-"\n#endif\n";
 
 std::shared_ptr<Application> Application::Initialize()
 {
 	std::shared_ptr<Application> ini = std::make_shared<Application>();
-
+	ini->self = ini;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		throw rend::Exception("Failed to initialise at Application::Initialize");
@@ -47,7 +29,28 @@ std::shared_ptr<Application> Application::Initialize()
 		throw rend::Exception("failed to create opengl cotext");
 	}
 
-	ini->self = ini;
+
+	ini->device = alcOpenDevice(NULL);
+
+	if (!ini->device)
+	{
+			throw std::exception();
+	}
+	ini->soundContext = alcCreateContext(ini->device, NULL);
+
+	if (!ini->soundContext)
+	{
+			alcCloseDevice(ini->device);
+			throw std::exception();
+	}
+	if (!alcMakeContextCurrent(ini->soundContext))
+	{
+			alcDestroyContext(ini->soundContext);
+			alcCloseDevice(ini->device);
+			throw std::exception();
+	}
+	alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
+
 	ini->context = rend::Context::initialize();
 	return ini;
 }
@@ -56,6 +59,9 @@ Application::~Application()
 {
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+	alcMakeContextCurrent(NULL);
+	alcDestroyContext(soundContext);
+	alcCloseDevice(device);
 }
 
 std::shared_ptr<Entity> Application::AddEntity()
