@@ -75,6 +75,7 @@ std::shared_ptr<Entity> Application::AddEntity()
 
 void Application::Run()
 {
+
 	bool quit = false;
 	while (!quit)
 	{
@@ -89,16 +90,14 @@ void Application::Run()
 		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin(); it != entities.end(); it++)
 		{
 			(*it)->tick();
-			std::cout << "entity tick" << std::endl;
+		//	std::cout << "entity tick" << std::endl;
 		}
 
-		/*glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);*/
 
 		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin(); it != entities.end(); it++)
 		{
 			(*it)->display();
-			std::cout << "entities display" << std::endl;
+		//	std::cout << "entities display" << std::endl;
 		}
 
 		SDL_GL_SwapWindow(window);

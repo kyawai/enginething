@@ -2,8 +2,8 @@
 #define _COMPONENT_H_
 
 #include <memory>
-
-
+#include <iostream>
+#include <glm/glm.hpp>
 
 class Application;
 class Entity;

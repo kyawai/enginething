@@ -34,6 +34,10 @@ src/engine/Audio.h
 src/engine/Audio.cpp
 src/engine/Camera.cpp
 src/engine/Camera.h
+src/engine/Transform.h
+src/engine/Transform.cpp
+src/engine/Environment.h
+src/engine/Environment.cpp
 )
 target_link_libraries(engine SDL2 rend OpenAL32)
 

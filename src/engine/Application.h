@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 #include <list>
-
+#include "Environment.h"
 #include "Entity.h"
 #include "Component.h"
 #include "Renderer.h"
