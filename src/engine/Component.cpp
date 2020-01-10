@@ -10,11 +10,6 @@ std::shared_ptr<Entity> Component::getEntity()
 	return entity.lock();
 }
 
-//std::shared_ptr<Application> Component::getApp()
-//{
-//	std::shared_ptr<Application> addapp = std::make_shared<Application>();
-//	return addapp;
-//}
 
 void Component::onInit()
 {

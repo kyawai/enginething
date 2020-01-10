@@ -4,6 +4,7 @@
 #include <memory>
 #include <iostream>
 #include <glm/glm.hpp>
+#include "Application.h"
 
 class Application;
 class Entity;

@@ -18,7 +18,7 @@ Renderer::Renderer()
 
 void Renderer::onDisplay()
 {
-	angle += 0.5f;
+	angle += 0.0f;
 
 	std::sr1::shared_ptr<Entity> ent = getEntity();
 

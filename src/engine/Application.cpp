@@ -90,14 +90,12 @@ void Application::Run()
 		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin(); it != entities.end(); it++)
 		{
 			(*it)->tick();
-		//	std::cout << "entity tick" << std::endl;
 		}
 
 
 		for (std::vector<std::shared_ptr<Entity>>::iterator it = entities.begin(); it != entities.end(); it++)
 		{
 			(*it)->display();
-		//	std::cout << "entities display" << std::endl;
 		}
 
 		SDL_GL_SwapWindow(window);

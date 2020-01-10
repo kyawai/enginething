@@ -11,6 +11,7 @@
 #include <rend/rend.h>
 #include "SDL2/SDL.h"
 #include "Audio.h"
+#include "Transform.h"
 
 class Application;
 class Entity;
